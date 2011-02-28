@@ -58,6 +58,29 @@ describe "Client" do
     end
   end
 
+  context "adding/updating a place" do
+    before do
+      stub_request :post,
+        'http://api.simplegeo.com/1.0/places.json',
+        :status => 202
+    end
+
+    it "should create a place" do
+      lambda {
+        record = SimpleGeo::Record.new({
+          :id => '1234',
+          :created => Time.at(1269832510),
+          :lat => 37.759650000000001,
+          :lon => -122.42608,
+          :properties => {
+            :test_property => 'foobar'
+          }
+      })
+      SimpleGeo::Client.add_place(record)
+      }.should_not raise_exception
+    end
+  end
+
   #TODO: verify request data contains correct record data
   context "adding/updating a record" do
     before do

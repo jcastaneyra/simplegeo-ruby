@@ -53,6 +53,10 @@ module SimpleGeo
         endpoint_url "context/#{ip}.json", '1.0'
       end
       
+      def places_for_creation
+        endpoint_url("places", "1.0")
+      end
+
       def places(lat, lon, options)
         if options.empty?
           endpoint_url "places/#{lat},#{lon}.json", '1.0'

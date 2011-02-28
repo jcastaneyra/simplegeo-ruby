@@ -26,6 +26,18 @@ module SimpleGeo
         @@debug
       end
 
+      def add_place(record)
+        if record.id.nil?
+          post Endpoint.places_for_creation, record
+        else
+          post Endpoint.feature(record.id), record
+        end
+      end
+
+      def delete_place(id)
+        delete Endpoint.feature(id)
+      end
+
       def add_record(record)
         raise SimpleGeoError, "Record has no layer"  if record.layer.nil?
         put Endpoint.record(record.layer, record.id), record
